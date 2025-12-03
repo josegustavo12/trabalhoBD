@@ -39,7 +39,7 @@ CREATE TABLE USUARIO_CIDADAO (
     BAIRRO VARCHAR(100),
     NUMERO INTEGER,
     CEP    CHAR(8),
-    STATUS CHAR(1)        NOT NULL,      -- 'A' ou 'I'
+    STATUS CHAR(1)        NOT NULL,      -- 'A' ou 'I' (ativo ou inativo)
     EMAIL  VARCHAR(100)   NOT NULL,
     SENHA  VARCHAR(100)   NOT NULL,
 
@@ -76,7 +76,7 @@ CREATE TABLE LINHA (
     NOME_CODIGO          VARCHAR(20)  NOT NULL,
     TARIFA               NUMERIC(6,2) NOT NULL,
     TEMPO_PERCURSO       INTEGER,
-    ATIVO                CHAR(1)      NOT NULL,  -- 'S' ou 'N'
+    ATIVO                CHAR(1)      NOT NULL,  -- 'S' ou 'N' (sim ou não)
     CNPJ_EMPRESA_PUBLICA CHAR(14)     NOT NULL,
 
     CONSTRAINT PK_LINHA PRIMARY KEY (NOME_CODIGO),
