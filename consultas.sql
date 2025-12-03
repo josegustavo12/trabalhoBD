@@ -81,7 +81,7 @@ WHERE NOT EXISTS (
     -- Verifica se há alguma linha da empresa que o cidadão não utilizou
     SELECT 1
     FROM LINHA l
-    WHERE l.CNPJ_EMPRESA_PUBLICA = '66666666000106'   -- Substitua pelo CNPJ da empresa
+    WHERE l.CNPJ_EMPRESA_PUBLICA = '10101010000110'   -- Substitua pelo CNPJ da empresa
       AND NOT EXISTS (
           SELECT 1
           FROM VIAGEM v
