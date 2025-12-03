@@ -13,6 +13,52 @@ import readchar
 
 console = Console()
 
+def validar_cpf(cpf):
+    if not cpf:
+        return False, "CPF não pode estar vazio"
+
+    if not cpf.isdigit():
+        return False, "CPF deve conter apenas números (sem pontos ou traços)"
+
+    if len(cpf) != 11:
+        return False, "CPF deve conter exatamente 11 dígitos"
+
+    return True, "CPF válido"
+
+def validar_cep(cep):
+    if not cep:
+        return False, "CEP não pode estar vazio"
+
+    if not cep.isdigit():
+        return False, "CEP deve conter apenas números (sem pontos ou traços)"
+
+    if len(cep) != 8:
+        return False, "CEP deve conter exatamente 8 dígitos"
+
+    return True, "CEP válido"
+
+def validar_email(email):
+    if not email:
+        return False, "Email não pode estar vazio"
+
+    if '@' not in email:
+        return False, "Email deve conter o caractere @"
+
+    partes = email.split('@')
+    if len(partes) != 2 or not partes[0] or not partes[1]:
+        return False, "Email deve ter o formato nome@dominio"
+
+    return True, "Email válido"
+
+def validar_numero_casa(numero):
+    if not numero:
+        return True, "Número vazio é válido"
+
+    if not numero.isdigit():
+        return False, "Número da casa deve conter apenas dígitos"
+
+    return True, "Número válido"
+
 def clear_screen():
     os.system('clear' if os.name != 'nt' else 'cls')
 
@@ -234,11 +280,37 @@ def cadastrar_cidadao(conn):
     console.print()
 
     cpf = Prompt.ask("[cyan]CPF[/cyan] (11 digitos)")
+
+    cpf_valido, mensagem = validar_cpf(cpf)
+    if not cpf_valido:
+        console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+        console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+        return
+
     rua = Prompt.ask("[cyan]Rua[/cyan]")
     bairro = Prompt.ask("[cyan]Bairro[/cyan]")
+
     numero = Prompt.ask("[cyan]Numero[/cyan]")
+    numero_valido, mensagem = validar_numero_casa(numero)
+    if not numero_valido:
+        console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+        console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+        return
+
     cep = Prompt.ask("[cyan]CEP[/cyan] (8 digitos)")
+    cep_valido, mensagem = validar_cep(cep)
+    if not cep_valido:
+        console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+        console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+        return
+
     email = Prompt.ask("[cyan]E-mail[/cyan]")
+    email_valido, mensagem = validar_email(email)
+    if not email_valido:
+        console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+        console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+        return
+
     senha = Prompt.ask("[cyan]Senha[/cyan]", password=True)
 
     status = 'A'
@@ -276,12 +348,39 @@ def cadastrar_gestor(conn):
     console.print()
 
     cpf = Prompt.ask("[yellow]CPF[/yellow] (11 digitos)")
+
+    cpf_valido, mensagem = validar_cpf(cpf)
+    if not cpf_valido:
+        console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+        console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+        return
+
     rua = Prompt.ask("[yellow]Rua[/yellow]")
     bairro = Prompt.ask("[yellow]Bairro[/yellow]")
+
     numero = Prompt.ask("[yellow]Numero[/yellow]")
+    numero_valido, mensagem = validar_numero_casa(numero)
+    if not numero_valido:
+        console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+        console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+        return
+
     cep = Prompt.ask("[yellow]CEP[/yellow] (8 digitos)")
+    cep_valido, mensagem = validar_cep(cep)
+    if not cep_valido:
+        console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+        console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+        return
+
     cargo = Prompt.ask("[yellow]Cargo[/yellow]")
+
     email = Prompt.ask("[yellow]E-mail[/yellow]")
+    email_valido, mensagem = validar_email(email)
+    if not email_valido:
+        console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+        console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+        return
+
     senha = Prompt.ask("[yellow]Senha[/yellow]", password=True)
     cnpj_orgao = Prompt.ask("[yellow]CNPJ do Orgao Publico[/yellow] (14 digitos)")
 
@@ -314,6 +413,12 @@ def listar_viagens_por_cpf(conn, cpf=None):
 
     if cpf is None:
         cpf = Prompt.ask("[cyan]CPF[/cyan] (11 digitos)")
+
+        cpf_valido, mensagem = validar_cpf(cpf)
+        if not cpf_valido:
+            console.print(f"\n[red]Erro de validacao:[/red] {mensagem}")
+            console.input("\n[dim]Pressione Enter para continuar...[/dim]")
+            return
 
     show_loading("Buscando viagens")
 

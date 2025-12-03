@@ -10,6 +10,17 @@ O script inicia automaticamente 2 containers Docker:
 - **sistemaonibus_db** - PostgreSQL na porta 5433
 - **sistemaonibus_app** - Aplicação Python
 
+## Possiveis problemas
+Caso fique muito tempo conectando o BD, provavelmente é erro de conexão entre o container que roda a interface do terminal e o container do Postgree, a solução é:
+```bash
+docker compose down
+```
+e rodar novamente o 
+
+```bash
+python3 run.py
+```
+
 ## Usuários de Teste
 
 O sistema inicia com usuários já cadastrados. Para ver todos os usuários, senhas e dados disponíveis:
